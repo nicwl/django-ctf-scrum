@@ -1,0 +1,18 @@
+body {
+	margin-left: 200px;
+	margin-right: 200px;
+	background-color: white;
+}
+
+.bg-danger {
+	padding: 10px;
+}
+
+/* close enough */
+.vote, .vote form {
+	display: inline;
+}
+
+.heading, .heading h2 {
+	display: inline;
+}

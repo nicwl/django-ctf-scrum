@@ -2,7 +2,17 @@
 
 {% block content %}
 {% include "post_overview.html" %}
-{% for comment in post.comments %}
+
+<div class="panel panel-default">
+	<div class="pannel-body">
+		{{ post.text }}
+	</div>
+</div>
+
+{% include "comment_ui.html" %}
+
+{% for comment in post.comments.all %}
 	{% include "comment.html" %}
 {% endfor %}
+
 {% endblock content %}

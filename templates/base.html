@@ -1,13 +1,36 @@
+{% load static %}
+<!--flag{3@zy-p1ck1ng5}-->
 <!doctype html>
 <html>
-	<head><title>Scrum{% if title %} | {{title}}{% endif %}</title></head>
+	<head>
+		<title>Scrumptious{% if title %} | {{title}}{% endif %}</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+		<script src="{% static 'jquery-2.2.4.min.js' %}"></script>
+		<script src="{% static 'bootstrap.min.js' %}"></script>
+	</head>
 	<body>
-		<nav>
-			<ul>
-				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'create_post' %}">Create Post</a></li>
-				<li><a href="{% url 'logout' %}">Log Out</a></li>
-			</ul>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+		        <a class="navbar-brand" href="{% url 'home' %}">Scrumptious</a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    	<ul class="nav navbar-nav">
+					<li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'create_post' %}">Create Post</a></li>
+					{% if user.is_authenticated %}
+						<li><a href="{% url 'logout' %}">Log Out</a></li>
+					{% else %}
+						<li><a href="{% url 'login' %}">Log In</a></li>
+					{% endif %}
+				</ul>
+				{% if user.is_authenticated %}
+					<ul class="nav navbar-nav navbar-right">
+	       				<li>{{ request.user.username }} ({{request.user.denorm_score }})</li>
+	       			</ul>
+       			{% endif %}
+			</div>
 		</nav>
 		{% block content %}
 		{% endblock %}

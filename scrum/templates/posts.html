@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<h1 style="display: inline-block">Today's Scrumptious Posts</h1>
+	<div style="display: inline-block" class="dropdown">
+	  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">As you like them
+	  <span class="caret"></span></button>
+	  <ul class="dropdown-menu">
+	    <li><a href="?order=-id">Most Recent first</a></li>
+	    <li><a href="?order=author__denorm_score">Best users first</a></li>
+	    <li><a href="?order=denorm_score">Best first</a></li>
+	    <li><a href="?order=-denorm_score">Worst first</a></li>
+	    <li><a href="?filter=author__id%3D{{request.user.id}}">Your posts</a></li>
+	  </ul>
+	</div>
 	{% for post in posts %}
 		{% include "post_overview.html" %}
 	{% endfor %}

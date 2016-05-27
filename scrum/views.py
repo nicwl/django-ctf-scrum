@@ -2,20 +2,35 @@ from django.shortcuts import render, redirect
 
 from django.views.generic import View
 from scrum.models import *
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class AllPosts(View):
+class AllPosts(LoginRequiredMixin, View):
 	def get(self, request):
-		return render(request, 'posts.html', {'posts': Post.objects.all()})
+		order = request.GET.get('order', '-id')
+		filter_ = request.GET.get('filter', 'id__gte=0')
+		print filter_
+		a, b = filter_.split('=')
+		posts = Post.objects.filter(**{a:b}).order_by(order)
+		return render(request, 'posts.html', {'posts': posts})
 
-class ViewPost(View):
+class ViewPost(LoginRequiredMixin, View):
 	def get(self, request, id):
 		post = Post.objects.get(id=int(id))
-		return render(request, 'post.html', {'post': post})
+		return render(request, 'post.html', {'post': post, 'form': CommentForm()})
 
-class CreatePost(View):
+	def post(self, request, id):
+		params = request.POST.copy()
+		params.update({'author': request.user.id, 'parent': id})
+		form = CommentForm(params)
+		if form.is_valid():
+			print "good"
+			comment = form.save()
+			return redirect(request.META['HTTP_REFERER'])
+		return render(request, 'post.html', {'post': post, 'form': form})
+
+class CreatePost(LoginRequiredMixin, View):
 	def get(self, request):
 		form = PostForm()
 		return render(request, 'create_post.html', {'form': form})
@@ -29,8 +44,7 @@ class CreatePost(View):
 			return redirect(post.get_view_url())
 		return render(request, 'create_post.html', {'form': form})
 
-
-class Vote(View):
+class Vote(LoginRequiredMixin, View):
 	def post(self, request):
 		post = request.POST['post']
 		direction = request.POST['direction']
@@ -39,13 +53,13 @@ class Vote(View):
 
 class SignUp(View):
 	def get(self, request):
-		form = UserCreationForm()
+		form = ScrumUserCreationForm()
 		return render(request, 'registration/signup.html', {'form': form})
 
 	def post(self, request):
-		form = UserCreationForm(request.POST)
+		form = ScrumUserCreationForm(request.POST)
 		if form.is_valid():
-			user = form.save(commit=False)
+			user = form.save(commit=True)
 			if user is not None:
 				user = authenticate(
 					username=form.cleaned_data['username'],

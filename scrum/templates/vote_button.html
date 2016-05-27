@@ -1,5 +1,7 @@
 <form method="post" action="{% url 'vote' %}">
 	<input type="hidden" name="post" value="{{post.id}}" />
 	<input type="hidden" name="direction" value="{{dir}}" />
-	<input type="submit" class="vote_button {{kind}}" value="{{kind}}" />
+	<button type="submit" class="vote_button {{kind}}">
+		<span class="glyphicon glyphicon-menu-{{kind}}" aria-hidden="true"></span>
+	</button>
 </form> 
