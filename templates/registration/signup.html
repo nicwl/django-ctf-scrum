@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+ {{ form.errors }}
+{% endif %}
+
+<form method="post" action="{% url 'signup' %}">
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password1.label_tag }}</td>
+    <td>{{ form.password1 }}</td>
+</tr>
+<tr>
+    <td>{{ form.password2.label_tag }}</td>
+    <td>{{ form.password2 }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Sign Up" />
+</form>
+
+{% endblock %}
