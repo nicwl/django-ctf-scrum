@@ -2,6 +2,13 @@
 <html>
 	<head><title>Scrum{% if title %} | {{title}}{% endif %}</title></head>
 	<body>
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'create_post' %}">Create Post</a></li>
+				<li><a href="{% url 'logout' %}">Log Out</a></li>
+			</ul>
+		</nav>
 		{% block content %}
 		{% endblock %}
 	</body>

@@ -1,6 +1,12 @@
 <div class="post">
 	<div class="vote">
 		{% include "vote_button.html" with kind="up" dir=1 %}
+		{{ post.score }}
+		{% if post.score > 10000 %}
+			<span class="flag">
+				flag{v0x-p0pul1}
+			</span>
+		{% endif %}
 		{% include "vote_button.html" with kind="down" dir=-1 %}
 	</div>
 	<h2>{% if post.url %}<a href="{{post.url}}">{{post.title}}</a>{% else %}{{post.title}}{% endif %}</h2>

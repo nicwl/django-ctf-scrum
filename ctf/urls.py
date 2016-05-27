@@ -25,5 +25,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name="login"),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name="logout"),
     url(r'^signup/$', scrum.views.SignUp.as_view(), name="signup"),
-    url(r'^$', scrum.views.AllPosts.as_view()),
+    url(r'^create_post/$', scrum.views.CreatePost.as_view(), name="create_post"),
+    url(r'^view_post/(\d+)$', scrum.views.ViewPost.as_view(), name="view_post"),
+    url(r'^$', scrum.views.AllPosts.as_view(), name="home"),
 ]

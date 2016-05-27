@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+	{{ form.errors }}
+{% endif %}
+<form method="post" action="">
+<table>
+<tr>
+    <td>{{ form.title.label_tag }}</td>
+    <td>{{ form.title }}</td>
+</tr>
+<tr>
+    <td>{{ form.url.label_tag }}</td>
+    <td>{{ form.url }}</td>
+</tr>
+<tr>
+    <td>{{ form.text.label_tag }}</td>
+    <td>{{ form.text }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Post" />
+</form>
+{% endblock %}

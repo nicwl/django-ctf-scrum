@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "post_overview.html" %}
+{% for comment in post.comments %}
+	{% include "comment.html" %}
+{% endfor %}
+{% endblock content %}
