@@ -51,13 +51,13 @@ We know that the third flag is the password for ExtremeModerator. We haven't rea
 
 There is a menu next to the page header saying "As you like them". Clicking on this reveals 5 ways to order and filter posts on the site. Clicking on any of them adds a GET parameter to the page URL. This is the mapping of choice to GET query string.
 
-Most recent first: ?order=-id
-Best users first: ?order=author__denorm_score
-Best first: ?order=denorm_score
-Worst first: ?order=-denorm_score
-Your posts: ?filter=author__id%3D2
+* Most recent first: `?order=-id`
+* Best users first: `?order=author__denorm_score`
+* Best first: `?order=denorm_score`
+* Worst first: `?order=-denorm_score`
+* Your posts: `?filter=author__id%3D2`
 
-If the last of those looks like garbage to you, you should read about URL encoding. It boils down to ?filter=(author__id=2) in an abstract sense. Note that 2 is my user ID and may not be your user ID.
+If the last of those looks like garbage to you, you should read about URL encoding. It boils down to `?filter=(author__id=2)` in an abstract sense. Note that 2 is my user ID and may not be your user ID.
 
 What's interesting here is that the ordering and filtering options don't seem to name the order or filtering we choose. They seem to describe how to order or filter the data in the way we want. What if we try changing these parameters? Can we set author__id to be another user's id? If we go to `?filter=author__id=1` then we get ExtremeModerator's post. Can we set filter by other author attributes (from the second ordering option it seems that we can)? If we go to `?filter=author__denorm_score%3D10000`, we only get posts from users with 10000 points. Can we filter by other attributes? Can we filter by password? Going to `?filter=author__password%3D123` when our password is 123 gives us our posts. Choosing a random value for author__password does not give us any posts.
 
