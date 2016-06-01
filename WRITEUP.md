@@ -67,4 +67,8 @@ I don't know whether DEBUG mode was enabled during the contest, but if it was ge
 
 Regardless, the double underscores can mean two things. In the case of `author__id` it means "First, look at the author of this post, then get the ID of that author". The other use of double underscores is to specify a comparison function. `Post.objects.filter(author__username="lolnic")` is actually a shorthand for `Post.objects.filter(author__username__exact="lolnic")`, meaning "Posts whose author's username exactly matches 'lolnic'". There are other comparison functions supported, however. One such is `startswith`. If we query the app for "Posts whose author's password starts with 'flag{'" (`?filter=author__password__startswith%3Dflag{`), we get ExtremeModerator's post. From here we can simply write a script to brute-force ExtremeModerator's password character-by-character. The script `breaker.py` will do this.
 
+```
+flag{0rm-1nj3ct1on}
+```
+
 Note: In reality this password would probably be hashed. In fact, there were workarounds put in place in this app to prevent Django's automatic password hashing. There are real (if poor) reasons that passwords would not be hashed in the wild, however (perhaps they are stored in some legacy system, or perhaps the author of the app is aggressively incompetent).
